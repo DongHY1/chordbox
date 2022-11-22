@@ -2,6 +2,7 @@
   "name": "chordbox",
   "version": "0.1.0",
   "private": true,
+  "author":"david dong",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
