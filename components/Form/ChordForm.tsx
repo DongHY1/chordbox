@@ -16,7 +16,11 @@ export default function ChordForm() {
           src={plus}
           className="w-4 h-4 mt-1 mr-2 cursor-pointer"
           alt="plus svg"
-          onClick={() => addLines(getNewLine())}
+          onClick={() => {
+            if (lines.length < 3) {
+              addLines(getNewLine());
+            }
+          }}
         />
       </div>
       {lines.map((item) => (
@@ -34,7 +38,11 @@ export default function ChordForm() {
           <div className="flex flex-row justify-between mr-2">
             <div
               className="m-2 cursor-pointer"
-              onClick={() => duplicateLines(item.id)}
+              onClick={() => {
+                if (lines.length < 3) {
+                  duplicateLines(item.id);
+                }
+              }}
             >
               复制
             </div>
