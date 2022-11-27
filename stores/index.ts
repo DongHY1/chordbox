@@ -1,2 +1,3 @@
 import { useSongStore } from './useSongStore';
-export { useSongStore };
+import { useTabStore } from './useTabStore';
+export { useSongStore, useTabStore };
