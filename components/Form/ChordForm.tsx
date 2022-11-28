@@ -5,9 +5,11 @@ import { useTabStore, getNewLine } from '../../stores';
 export default function ChordForm() {
   const lines = useTabStore((state) => state.lines);
   const addLines = useTabStore((state) => state.addLines);
+  const addChord = useTabStore((state) => state.addChord);
   const deleteLines = useTabStore((state) => state.deleteLines);
   const updateRowTitle = useTabStore((state) => state.updateRowTitle);
   const duplicateLines = useTabStore((state) => state.duplicateLines);
+
   return (
     <div className="flex flex-col basis-3/4 bg-red-200">
       <div className="flex flex-row justify-between bg-red-300 ">
@@ -51,6 +53,12 @@ export default function ChordForm() {
               onClick={() => deleteLines(item.id)}
             >
               删除
+            </div>
+            <div
+              className="m-2 cursor-pointer"
+              onClick={() => addChord(item.id)}
+            >
+              添加和弦
             </div>
           </div>
         </div>

@@ -6,6 +6,7 @@ export interface Tab {
   chords: Array<Chord>;
 }
 export interface Chord {
+  id: number;
   name: String;
   position: {
     one: Number;
@@ -16,15 +17,3 @@ export interface Chord {
     six: Number;
   };
 }
-// const tab: Tab = {
-//   title: 'david',
-//   author: 'haoyu',
-//   tone: 'test',
-//   description: 'test',
-//   chords: [
-//     {
-//       name: 'test',
-//       position: { one: 1, two: 2, three: 3, four: 4, five: 5, six: 6 },
-//     },
-//   ],
-// };
