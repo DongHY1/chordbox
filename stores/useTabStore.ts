@@ -12,6 +12,8 @@ interface TabState {
   duplicateLines: (id: number) => void;
   addChord: (id: number) => void;
   deleteChord: (lineId: number, chordId: number) => void;
+  addChordStart: (lineId: number, chordId: number) => void;
+  decreaseChordStart: (lineId: number, chordId: number) => void;
   updateChordName: (lineId: number, chordId: number, chordName: string) => void;
   updateRowTitle: (id: number, title: string) => void;
 }
@@ -24,6 +26,14 @@ export const useTabStore = create<TabState>()((set) => ({
   deleteChord: (lineId, chordId) =>
     set((state) => ({
       lines: getDeleteChord(lineId, chordId, state.lines),
+    })),
+  addChordStart: (lineId, chordId) =>
+    set((state) => ({
+      lines: getAddChordStart(lineId, chordId, state.lines),
+    })),
+  decreaseChordStart: (lineId, chordId) =>
+    set((state) => ({
+      lines: getDeleteChordStart(lineId, chordId, state.lines),
     })),
   updateChordName: (lineId, chordId, chordName) =>
     set((state) => ({
@@ -110,7 +120,7 @@ export function getDeleteChord(
   });
   return newLines;
 }
-function getUpdateChordName(
+export function getUpdateChordName(
   lineId: number,
   chordId: number,
   chordName: string,
@@ -125,6 +135,44 @@ function getUpdateChordName(
   );
   const targetChord = targetLine.chords[chordIndex];
   targetChord.name = chordName;
+  const newLines = lines.map((line) => {
+    return line.id === targetLine.id ? targetLine : line;
+  });
+  return newLines;
+}
+export function getAddChordStart(
+  lineId: number,
+  chordId: number,
+  lines: Array<Line>
+): Array<Line> {
+  // 通过lineId 找到 line
+  const lineIndex = lines.findIndex((line) => line.id === lineId);
+  const targetLine = lines[lineIndex];
+  // 通过该chordId 找到 line中对应的chord
+  const chordIndex = targetLine.chords.findIndex(
+    (chord) => chord.id === chordId
+  );
+  const targetChord = targetLine.chords[chordIndex];
+  targetChord.start++;
+  const newLines = lines.map((line) => {
+    return line.id === targetLine.id ? targetLine : line;
+  });
+  return newLines;
+}
+export function getDeleteChordStart(
+  lineId: number,
+  chordId: number,
+  lines: Array<Line>
+): Array<Line> {
+  // 通过lineId 找到 line
+  const lineIndex = lines.findIndex((line) => line.id === lineId);
+  const targetLine = lines[lineIndex];
+  // 通过该chordId 找到 line中对应的chord
+  const chordIndex = targetLine.chords.findIndex(
+    (chord) => chord.id === chordId
+  );
+  const targetChord = targetLine.chords[chordIndex];
+  targetChord.start > 0 ? targetChord.start-- : targetChord;
   const newLines = lines.map((line) => {
     return line.id === targetLine.id ? targetLine : line;
   });
