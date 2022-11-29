@@ -1,19 +1,20 @@
 export interface Tab {
-  title: String;
-  author: String;
-  tone: String;
-  description: String;
+  title: string;
+  author: string;
+  tone: string;
+  description: string;
   chords: Array<Chord>;
 }
 export interface Chord {
   id: number;
-  name: String;
+  name: string;
+  start: number;
   position: {
-    one: Number;
-    two: Number;
-    three: Number;
-    four: Number;
-    five: Number;
-    six: Number;
+    one: number;
+    two: number;
+    three: number;
+    four: number;
+    five: number;
+    six: number;
   };
 }
