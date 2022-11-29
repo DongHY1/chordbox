@@ -60,11 +60,17 @@ export default function ChordBox({
             </div>
           </aside>
           <main className="grid grid-flow-col auto-cols-fr bg-fuchsia-300  basis-5/6">
+            {/* 6弦 */}
             <ChordGrid />
+            {/* 5弦 */}
             <ChordGrid />
+            {/* 4弦 */}
             <ChordGrid />
+            {/* 3弦 */}
             <ChordGrid />
+            {/* 2弦 */}
             <ChordGrid />
+            {/* 1弦 */}
             <ChordGrid />
           </main>
         </div>

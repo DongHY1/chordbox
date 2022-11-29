@@ -1,11 +1,21 @@
-import React from 'react';
+import React, { forwardRef, useImperativeHandle, useRef } from 'react';
 import { useTabStore } from '../stores';
 import ChordBox from './Chord/ChordBox';
 import TabHeader from './TabHeader';
-export default function Tab() {
+import { useReactToPrint } from 'react-to-print';
+const Tab = (props: any, ref: any) => {
+  const tabRef = useRef(null);
   const lines = useTabStore((state) => state.lines);
+  const handleTabPrint = useReactToPrint({
+    content: () => tabRef.current,
+  });
+  useImperativeHandle(ref, () => ({
+    handleTabPrintClick() {
+      handleTabPrint();
+    },
+  }));
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-full" ref={tabRef}>
       <TabHeader />
       <div className="flex flex-col bg-slate-400 basis-5/6 ">
         {lines.map((item) => (
@@ -21,4 +31,5 @@ export default function Tab() {
       </div>
     </div>
   );
-}
+};
+export default forwardRef(Tab);
