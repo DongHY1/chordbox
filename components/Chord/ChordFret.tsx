@@ -1,17 +1,27 @@
 import React, { useState } from 'react';
 import cross from '../../public/cross.svg';
 import Image from 'next/image';
+import { useTabStore } from '../../stores';
 interface ChordFretProps {
+  lineId: string;
+  chordId: string;
   bar: number;
   string: number;
   open: boolean;
 }
-export default function ChordFret({ bar, string, open }: ChordFretProps) {
-  const handleButtonClick = () => {
-    console.log(`第${string}根弦的第${bar}品被点了`);
-  };
+export default function ChordFret({
+  lineId,
+  chordId,
+  bar,
+  string,
+  open,
+}: ChordFretProps) {
+  const updateChordPosition = useTabStore((state) => state.updateChordPosition);
   return (
-    <button className="border-b border-indigo-600 " onClick={handleButtonClick}>
+    <button
+      className="border-b border-indigo-600 "
+      onClick={() => updateChordPosition(lineId, chordId, string, bar)}
+    >
       <div className="flex justify-center ">
         {open ? (
           <div className="w-3 h-3 border rounded-full border-gray-900"></div>

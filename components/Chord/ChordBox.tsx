@@ -70,31 +70,43 @@ export default function ChordBox({
               string={6}
               start={chordStart}
               position={chordPosition.six}
+              lineId={lineId}
+              chordId={chordId}
             />
             <ChordGrid
               string={5}
               start={chordStart}
               position={chordPosition.five}
+              lineId={lineId}
+              chordId={chordId}
             />
             <ChordGrid
               string={4}
               start={chordStart}
               position={chordPosition.four}
+              lineId={lineId}
+              chordId={chordId}
             />
             <ChordGrid
               string={3}
               start={chordStart}
               position={chordPosition.three}
+              lineId={lineId}
+              chordId={chordId}
             />
             <ChordGrid
               string={2}
               start={chordStart}
               position={chordPosition.two}
+              lineId={lineId}
+              chordId={chordId}
             />
             <ChordGrid
               string={1}
               start={chordStart}
               position={chordPosition.one}
+              lineId={lineId}
+              chordId={chordId}
             />
           </main>
         </div>

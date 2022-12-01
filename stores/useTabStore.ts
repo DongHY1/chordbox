@@ -1,5 +1,5 @@
 import create from 'zustand';
-import { v4 as uuidv4, v4 } from 'uuid';
+import { v4 } from 'uuid';
 import { Chord } from '../constant';
 interface Line {
   id: string;
@@ -16,12 +16,12 @@ interface TabState {
   addChordStart: (lineId: string, chordId: string) => void;
   decreaseChordStart: (lineId: string, chordId: string) => void;
   updateChordName: (lineId: string, chordId: string, chordName: string) => void;
-  // updateChordPosition: (
-  //   lineId: string,
-  //   chordId: string,
-  //   string:string,
-
-  // ) => void;
+  updateChordPosition: (
+    lineId: string,
+    chordId: string,
+    string: number,
+    position: number
+  ) => void;
   updateRowTitle: (id: string, title: string) => void;
 }
 
@@ -45,6 +45,16 @@ export const useTabStore = create<TabState>()((set) => ({
   updateChordName: (lineId, chordId, chordName) =>
     set((state) => ({
       lines: getUpdateChordName(lineId, chordId, chordName, state.lines),
+    })),
+  updateChordPosition: (lineId, chordId, string, position) =>
+    set((state) => ({
+      lines: getUpdateChordPosition(
+        lineId,
+        chordId,
+        string,
+        position,
+        state.lines
+      ),
     })),
   deleteLines: (id) =>
     set((state) => ({
@@ -105,7 +115,7 @@ export function getNewChord(): Chord {
     id: v4(),
     name: 'Input',
     start: 0,
-    position: { one: 0, two: 1, three: 2, four: 3, five: 4, six: 3 },
+    position: { one: 0, two: 0, three: 0, four: 0, five: 0, six: 0 },
   };
   return emptyChord;
 }
@@ -140,6 +150,45 @@ export function getUpdateChordName(
   );
   const targetChord = targetLine.chords[chordIndex];
   targetChord.name = chordName;
+  const newLines = lines.map((line) => {
+    return line.id === targetLine.id ? targetLine : line;
+  });
+  return newLines;
+}
+export function getUpdateChordPosition(
+  lineId: string,
+  chordId: string,
+  chordString: number,
+  chordPosition: number,
+  lines: Array<Line>
+): Array<Line> {
+  const lineIndex = lines.findIndex((line) => line.id === lineId);
+  const targetLine = lines[lineIndex];
+  const chordIndex = targetLine.chords.findIndex(
+    (chord) => chord.id === chordId
+  );
+  const targetChord = targetLine.chords[chordIndex];
+  switch (chordString) {
+    case 6:
+      targetChord.position.six = chordPosition;
+      break;
+    case 5:
+      targetChord.position.five = chordPosition;
+      break;
+    case 4:
+      targetChord.position.four = chordPosition;
+      break;
+    case 3:
+      targetChord.position.three = chordPosition;
+      break;
+    case 2:
+      targetChord.position.two = chordPosition;
+      break;
+    case 1:
+      targetChord.position.one = chordPosition;
+      break;
+  }
+
   const newLines = lines.map((line) => {
     return line.id === targetLine.id ? targetLine : line;
   });
