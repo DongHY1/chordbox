@@ -6,7 +6,7 @@ export interface Tab {
   chords: Array<Chord>;
 }
 export interface Chord {
-  id: number;
+  id: string;
   name: string;
   start: number;
   position: {

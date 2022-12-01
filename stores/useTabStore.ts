@@ -1,21 +1,22 @@
 import create from 'zustand';
+import { v4 as uuidv4, v4 } from 'uuid';
 import { Chord } from '../constant';
 interface Line {
-  id: number;
+  id: string;
   title: string;
   chords: Array<Chord>;
 }
 interface TabState {
   lines: Array<Line>;
   addLines: (line: Line) => void;
-  deleteLines: (id: number) => void;
-  duplicateLines: (id: number) => void;
-  addChord: (id: number) => void;
-  deleteChord: (lineId: number, chordId: number) => void;
-  addChordStart: (lineId: number, chordId: number) => void;
-  decreaseChordStart: (lineId: number, chordId: number) => void;
-  updateChordName: (lineId: number, chordId: number, chordName: string) => void;
-  updateRowTitle: (id: number, title: string) => void;
+  deleteLines: (id: string) => void;
+  duplicateLines: (id: string) => void;
+  addChord: (id: string) => void;
+  deleteChord: (lineId: string, chordId: string) => void;
+  addChordStart: (lineId: string, chordId: string) => void;
+  decreaseChordStart: (lineId: string, chordId: string) => void;
+  updateChordName: (lineId: string, chordId: string, chordName: string) => void;
+  updateRowTitle: (id: string, title: string) => void;
 }
 
 export const useTabStore = create<TabState>()((set) => ({
@@ -49,7 +50,7 @@ export const useTabStore = create<TabState>()((set) => ({
     set((state) => ({ lines: getNewTitleLines(id, title, state.lines) })),
 }));
 export function getNewTitleLines(
-  id: number,
+  id: string,
   title: string,
   lines: Array<Line>
 ): Array<Line> {
@@ -64,7 +65,7 @@ export function getNewTitleLines(
   }
   return res;
 }
-export function getDuplicateLines(id: number, lines: Array<Line>): Array<Line> {
+export function getDuplicateLines(id: string, lines: Array<Line>): Array<Line> {
   let temp = getNewLine();
   for (let i = 0; i < lines.length; i++) {
     if (lines[i].id === id) {
@@ -74,7 +75,7 @@ export function getDuplicateLines(id: number, lines: Array<Line>): Array<Line> {
   }
   return [...lines, temp];
 }
-export function getNewChordLine(id: number, lines: Array<Line>): Array<Line> {
+export function getNewChordLine(id: string, lines: Array<Line>): Array<Line> {
   const lineId = lines.findIndex((line) => line.id === id);
   const target = lines[lineId];
   if (target.chords.length < 6) {
@@ -87,7 +88,7 @@ export function getNewChordLine(id: number, lines: Array<Line>): Array<Line> {
 }
 export function getNewLine(): Line {
   const emptyLine: Line = {
-    id: Date.now(),
+    id: v4(),
     title: 'Intro',
     chords: [getNewChord()],
   };
@@ -95,7 +96,7 @@ export function getNewLine(): Line {
 }
 export function getNewChord(): Chord {
   const emptyChord: Chord = {
-    id: Date.now(),
+    id: v4(),
     name: 'Input',
     start: 0,
     position: { one: 0, two: 0, three: 0, four: 0, five: 0, six: 0 },
@@ -103,8 +104,8 @@ export function getNewChord(): Chord {
   return emptyChord;
 }
 export function getDeleteChord(
-  lineId: number,
-  chordId: number,
+  lineId: string,
+  chordId: string,
   lines: Array<Line>
 ): Array<Line> {
   // 通过lineId 找到 line
@@ -121,8 +122,8 @@ export function getDeleteChord(
   return newLines;
 }
 export function getUpdateChordName(
-  lineId: number,
-  chordId: number,
+  lineId: string,
+  chordId: string,
   chordName: string,
   lines: Array<Line>
 ): Array<Line> {
@@ -141,8 +142,8 @@ export function getUpdateChordName(
   return newLines;
 }
 export function getAddChordStart(
-  lineId: number,
-  chordId: number,
+  lineId: string,
+  chordId: string,
   lines: Array<Line>
 ): Array<Line> {
   // 通过lineId 找到 line
@@ -160,8 +161,8 @@ export function getAddChordStart(
   return newLines;
 }
 export function getDeleteChordStart(
-  lineId: number,
-  chordId: number,
+  lineId: string,
+  chordId: string,
   lines: Array<Line>
 ): Array<Line> {
   // 通过lineId 找到 line

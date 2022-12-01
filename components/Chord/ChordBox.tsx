@@ -1,11 +1,10 @@
-import Image from 'next/image';
 import React, { useState } from 'react';
 import { Chord } from '../../constant';
 import { useTabStore } from '../../stores';
 import ChordGrid from './ChordGrid';
 interface ChordBoxProps {
   chord: Chord;
-  lineId: number;
+  lineId: string;
 }
 export default function ChordBox({
   chord: { id: chordId, name: chordName, start: chordStart },
