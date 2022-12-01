@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import cross from '../../public/cross.svg';
 import Image from 'next/image';
 import { useTabStore } from '../../stores';

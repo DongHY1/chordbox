@@ -1,6 +1,9 @@
 import Head from 'next/head';
 import Main from '../components/Main';
+import { useHasMounted } from '../hooks';
 export default function Home() {
+  const hasMounted = useHasMounted();
+  if (!hasMounted) return <></>;
   return (
     <div className="bg-black flex flex-col">
       <Head>

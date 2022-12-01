@@ -1,13 +1,32 @@
 import create from 'zustand';
+import { persist, StateStorage } from 'zustand/middleware';
 import { v4 } from 'uuid';
-import { Chord } from '../constant';
+interface Chord {
+  id: string;
+  name: string;
+  start: number;
+  position: {
+    one: number;
+    two: number;
+    three: number;
+    four: number;
+    five: number;
+    six: number;
+  };
+}
 interface Line {
   id: string;
   title: string;
   chords: Array<Chord>;
 }
 interface TabState {
+  songName: string;
+  author: string;
+  description: string;
   lines: Array<Line>;
+  updateSongName: (song: string) => void;
+  updateAuthor: (author: string) => void;
+  updateDescription: (desc: string) => void;
   addLines: (line: Line) => void;
   deleteLines: (id: string) => void;
   duplicateLines: (id: string) => void;
@@ -24,47 +43,85 @@ interface TabState {
   ) => void;
   updateRowTitle: (id: string, title: string) => void;
 }
+const hashStorage: StateStorage = {
+  getItem: (key): string => {
+    const hash = window && window.location.hash.slice(1);
+    const searchParams = new URLSearchParams(hash);
+    const storedValue = searchParams.get(key);
+    if (!storedValue) {
+      throw new Error('no value');
+    }
+    return JSON.parse(storedValue);
+  },
+  setItem: (key, newValue): void => {
+    const hash = window && window.location.hash.slice(1);
+    const searchParams = new URLSearchParams(hash);
+    searchParams.set(key, JSON.stringify(newValue));
+    location.hash = searchParams.toString();
+  },
+  removeItem: (key): void => {
+    const hash = window && window.location.hash.slice(1);
+    const searchParams = new URLSearchParams(hash);
+    searchParams.delete(key);
+    location.hash = searchParams.toString();
+  },
+};
 
-export const useTabStore = create<TabState>()((set) => ({
-  lines: [getNewLine()],
-  addLines: (line: Line) => set((state) => ({ lines: [...state.lines, line] })),
-  addChord: (id) =>
-    set((state) => ({ lines: getNewChordLine(id, state.lines) })),
-  deleteChord: (lineId, chordId) =>
-    set((state) => ({
-      lines: getDeleteChord(lineId, chordId, state.lines),
-    })),
-  addChordStart: (lineId, chordId) =>
-    set((state) => ({
-      lines: getAddChordStart(lineId, chordId, state.lines),
-    })),
-  decreaseChordStart: (lineId, chordId) =>
-    set((state) => ({
-      lines: getDeleteChordStart(lineId, chordId, state.lines),
-    })),
-  updateChordName: (lineId, chordId, chordName) =>
-    set((state) => ({
-      lines: getUpdateChordName(lineId, chordId, chordName, state.lines),
-    })),
-  updateChordPosition: (lineId, chordId, string, position) =>
-    set((state) => ({
-      lines: getUpdateChordPosition(
-        lineId,
-        chordId,
-        string,
-        position,
-        state.lines
-      ),
-    })),
-  deleteLines: (id) =>
-    set((state) => ({
-      lines: state.lines.filter((line) => line.id !== id),
-    })),
-  duplicateLines: (id) =>
-    set((state) => ({ lines: getDuplicateLines(id, state.lines) })),
-  updateRowTitle: (id, title) =>
-    set((state) => ({ lines: getNewTitleLines(id, title, state.lines) })),
-}));
+export const useTabStore = create<TabState>()(
+  persist(
+    (set) => ({
+      songName: '普通朋友',
+      author: 'David Tao',
+      description: '这是一个示范',
+      lines: [getNewLine()],
+      updateSongName: (song) => set(() => ({ songName: song })),
+      updateAuthor: (author) => set(() => ({ author })),
+      updateDescription: (desc) => set(() => ({ description: desc })),
+      addLines: (line: Line) =>
+        set((state) => ({ lines: [...state.lines, line] })),
+      addChord: (id) =>
+        set((state) => ({ lines: getNewChordLine(id, state.lines) })),
+      deleteChord: (lineId, chordId) =>
+        set((state) => ({
+          lines: getDeleteChord(lineId, chordId, state.lines),
+        })),
+      addChordStart: (lineId, chordId) =>
+        set((state) => ({
+          lines: getAddChordStart(lineId, chordId, state.lines),
+        })),
+      decreaseChordStart: (lineId, chordId) =>
+        set((state) => ({
+          lines: getDeleteChordStart(lineId, chordId, state.lines),
+        })),
+      updateChordName: (lineId, chordId, chordName) =>
+        set((state) => ({
+          lines: getUpdateChordName(lineId, chordId, chordName, state.lines),
+        })),
+      updateChordPosition: (lineId, chordId, string, position) =>
+        set((state) => ({
+          lines: getUpdateChordPosition(
+            lineId,
+            chordId,
+            string,
+            position,
+            state.lines
+          ),
+        })),
+      deleteLines: (id) =>
+        set((state) => ({
+          lines: state.lines.filter((line) => line.id !== id),
+        })),
+      duplicateLines: (id) =>
+        set((state) => ({ lines: getDuplicateLines(id, state.lines) })),
+      updateRowTitle: (id, title) =>
+        set((state) => ({ lines: getNewTitleLines(id, title, state.lines) })),
+    }),
+    {
+      name: 'tabstorage',
+      getStorage: () => hashStorage,
+    }
+  )
+);
 export function getNewTitleLines(
   id: string,
   title: string,

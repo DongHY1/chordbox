@@ -1,9 +1,9 @@
 import React from 'react';
-import { useSongStore } from '../../stores';
+import { useTabStore } from '../../stores';
 export default function SongForm() {
-  const updateSongName = useSongStore((state) => state.updateSongName);
-  const updateAuthor = useSongStore((state) => state.updateAuthor);
-  const updateDescription = useSongStore((state) => state.updateDescription);
+  const updateSongName = useTabStore((state) => state.updateSongName);
+  const updateAuthor = useTabStore((state) => state.updateAuthor);
+  const updateDescription = useTabStore((state) => state.updateDescription);
   const handleSongNameChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ): void => {

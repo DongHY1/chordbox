@@ -1,10 +1,3 @@
-export interface Tab {
-  title: string;
-  author: string;
-  tone: string;
-  description: string;
-  chords: Array<Chord>;
-}
 export interface Chord {
   id: string;
   name: string;
