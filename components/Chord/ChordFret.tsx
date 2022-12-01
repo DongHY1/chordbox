@@ -7,7 +7,6 @@ interface ChordFretProps {
   open: boolean;
 }
 export default function ChordFret({ bar, string, open }: ChordFretProps) {
-  const [isClick, setIsClick] = useState(false);
   const handleButtonClick = () => {
     console.log(`第${string}根弦的第${bar}品被点了`);
   };

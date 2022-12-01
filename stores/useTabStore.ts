@@ -16,6 +16,12 @@ interface TabState {
   addChordStart: (lineId: string, chordId: string) => void;
   decreaseChordStart: (lineId: string, chordId: string) => void;
   updateChordName: (lineId: string, chordId: string, chordName: string) => void;
+  // updateChordPosition: (
+  //   lineId: string,
+  //   chordId: string,
+  //   string:string,
+
+  // ) => void;
   updateRowTitle: (id: string, title: string) => void;
 }
 
@@ -99,7 +105,7 @@ export function getNewChord(): Chord {
     id: v4(),
     name: 'Input',
     start: 0,
-    position: { one: 0, two: 0, three: 0, four: 0, five: 0, six: 0 },
+    position: { one: 0, two: 1, three: 2, four: 3, five: 4, six: 3 },
   };
   return emptyChord;
 }

@@ -5,10 +5,10 @@ interface ChordButtonProps {
   open: boolean;
 }
 export default function ChordButton({ bar, string, open }: ChordButtonProps) {
-  const [isClick, setIsClick] = useState(false);
   // 需要知道是第几根线 第几个位置
   const handleButtonClick = () => {
-    console.log(`第${string}根弦的第${bar}品被点了`);
+    console.log(`列id:和弦ID:该和弦的第${string}根弦的第${bar}品被点了`);
+    // 更改某一排，某一个和弦的位置
   };
   return (
     <button
@@ -17,7 +17,7 @@ export default function ChordButton({ bar, string, open }: ChordButtonProps) {
     >
       <div
         className={
-          isClick
+          open
             ? 'w-5 h-5 bg-black rounded-full'
             : 'border-l border-indigo-900 h-full'
         }
