@@ -113,9 +113,7 @@ export function getDeleteChord(
   const target = lines[lineIndex];
   // 通过该chordId 找到 line中对应的chord
   const chords = target.chords.filter((chord) => chord.id !== chordId);
-  console.log('改变前和弦是', target.chords);
   target.chords = chords;
-  console.log('改变后和弦是', target.chords);
   const newLines = lines.map((line) => {
     return line.id === target.id ? target : line;
   });

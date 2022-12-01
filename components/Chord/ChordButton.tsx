@@ -1,12 +1,19 @@
 import React, { useState } from 'react';
-
-export default function ChordButton() {
+interface ChordButtonProps {
+  bar: number;
+  string: number;
+  open: boolean;
+}
+export default function ChordButton({ bar, string, open }: ChordButtonProps) {
   const [isClick, setIsClick] = useState(false);
   // 需要知道是第几根线 第几个位置
+  const handleButtonClick = () => {
+    console.log(`第${string}根弦的第${bar}品被点了`);
+  };
   return (
     <button
       className="flex justify-center  border-t border-b border-indigo-600"
-      onClick={() => setIsClick(!isClick)}
+      onClick={handleButtonClick}
     >
       <div
         className={

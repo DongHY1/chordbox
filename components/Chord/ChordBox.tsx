@@ -7,13 +7,19 @@ interface ChordBoxProps {
   lineId: string;
 }
 export default function ChordBox({
-  chord: { id: chordId, name: chordName, start: chordStart },
+  chord: {
+    id: chordId,
+    name: chordName,
+    start: chordStart,
+    position: chordPosition,
+  },
   lineId,
 }: ChordBoxProps) {
   const deleteChord = useTabStore((state) => state.deleteChord);
   const updateChordName = useTabStore((state) => state.updateChordName);
   const addChordStart = useTabStore((state) => state.addChordStart);
   const decreaseChordStart = useTabStore((state) => state.decreaseChordStart);
+
   const [isChordStartClick, setIsChordStartClick] = useState(false);
   return (
     <div className="flex flex-col basis-1/6 bg-red-100 m-2 h-36 ">
@@ -26,7 +32,7 @@ export default function ChordBox({
           }
         />
         <div
-          className="h-full m-auto"
+          className="h-full m-auto cursor-pointer"
           onClick={() => deleteChord(lineId, chordId)}
         >
           🚮
@@ -59,18 +65,37 @@ export default function ChordBox({
             </div>
           </aside>
           <main className="grid grid-flow-col auto-cols-fr bg-fuchsia-300  basis-5/6">
-            {/* 6弦 */}
-            <ChordGrid />
-            {/* 5弦 */}
-            <ChordGrid />
-            {/* 4弦 */}
-            <ChordGrid />
-            {/* 3弦 */}
-            <ChordGrid />
-            {/* 2弦 */}
-            <ChordGrid />
-            {/* 1弦 */}
-            <ChordGrid />
+            {/* 六弦一品处渲染 */}
+            <ChordGrid
+              string={6}
+              start={chordStart}
+              position={chordPosition.six}
+            />
+            <ChordGrid
+              string={5}
+              start={chordStart}
+              position={chordPosition.five}
+            />
+            <ChordGrid
+              string={4}
+              start={chordStart}
+              position={chordPosition.four}
+            />
+            <ChordGrid
+              string={3}
+              start={chordStart}
+              position={chordPosition.three}
+            />
+            <ChordGrid
+              string={2}
+              start={chordStart}
+              position={chordPosition.two}
+            />
+            <ChordGrid
+              string={1}
+              start={chordStart}
+              position={chordPosition.one}
+            />
           </main>
         </div>
       </div>
