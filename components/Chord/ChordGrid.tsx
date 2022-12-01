@@ -17,7 +17,52 @@ export default function ChordGrid({
   start,
   position,
 }: ChordGridProps) {
-  if (position === start || position === 0) {
+  if (position === -1) {
+    return (
+      <section className="grid grid-flow-row auto-rows-fr">
+        {/* 0品 */}
+        <ChordFret
+          string={string}
+          bar={0}
+          open={false}
+          lineId={lineId}
+          chordId={chordId}
+        />
+        {/* 1品 */}
+        <ChordButton
+          string={string}
+          bar={1}
+          open={false}
+          lineId={lineId}
+          chordId={chordId}
+        />
+        {/* 2品 */}
+        <ChordButton
+          string={string}
+          bar={2}
+          open={false}
+          lineId={lineId}
+          chordId={chordId}
+        />
+        {/* 3品 */}
+        <ChordButton
+          string={string}
+          bar={3}
+          open={false}
+          lineId={lineId}
+          chordId={chordId}
+        />
+        {/* 4品 */}
+        <ChordButton
+          string={string}
+          bar={4}
+          open={false}
+          lineId={lineId}
+          chordId={chordId}
+        />
+      </section>
+    );
+  } else if (position === start || position === 0) {
     return (
       <section className="grid grid-flow-row auto-rows-fr">
         {/* 0品 */}

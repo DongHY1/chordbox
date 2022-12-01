@@ -175,23 +175,53 @@ export function getUpdateChordPosition(
   const targetChord = targetLine.chords[chordIndex];
   switch (chordString) {
     case 6:
-      targetChord.position.six = chordPosition;
-      break;
+      if (targetChord.position.six === chordPosition) {
+        targetChord.position.six = -1;
+        break;
+      } else {
+        targetChord.position.six = chordPosition;
+        break;
+      }
     case 5:
-      targetChord.position.five = chordPosition;
-      break;
+      if (targetChord.position.five === chordPosition) {
+        targetChord.position.five = -1;
+        break;
+      } else {
+        targetChord.position.five = chordPosition;
+        break;
+      }
     case 4:
-      targetChord.position.four = chordPosition;
-      break;
+      if (targetChord.position.four === chordPosition) {
+        targetChord.position.four = -1;
+        break;
+      } else {
+        targetChord.position.four = chordPosition;
+        break;
+      }
     case 3:
-      targetChord.position.three = chordPosition;
-      break;
+      if (targetChord.position.three === chordPosition) {
+        targetChord.position.three = -1;
+        break;
+      } else {
+        targetChord.position.three = chordPosition;
+        break;
+      }
     case 2:
-      targetChord.position.two = chordPosition;
-      break;
+      if (targetChord.position.two === chordPosition) {
+        targetChord.position.two = -1;
+        break;
+      } else {
+        targetChord.position.two = chordPosition;
+        break;
+      }
     case 1:
-      targetChord.position.one = chordPosition;
-      break;
+      if (targetChord.position.one === chordPosition) {
+        targetChord.position.one = -1;
+        break;
+      } else {
+        targetChord.position.one = chordPosition;
+        break;
+      }
   }
 
   const newLines = lines.map((line) => {
