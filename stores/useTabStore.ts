@@ -85,10 +85,15 @@ export function getDuplicateLines(id: string, lines: Array<Line>): Array<Line> {
   let temp = getNewLine();
   for (let i = 0; i < lines.length; i++) {
     if (lines[i].id === id) {
+      temp.id = v4();
       temp.title = lines[i].title;
-      temp.chords = lines[i].chords;
+      temp.chords = JSON.parse(JSON.stringify(lines[i].chords));
     }
   }
+  for (let i = 0; i < temp.chords.length; i++) {
+    temp.chords[i].id = v4();
+  }
+
   return [...lines, temp];
 }
 export function getNewChordLine(id: string, lines: Array<Line>): Array<Line> {
