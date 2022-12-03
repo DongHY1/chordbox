@@ -1,7 +1,7 @@
 import create from 'zustand';
 import { persist, StateStorage } from 'zustand/middleware';
 import { v4 } from 'uuid';
-interface Chord {
+export interface Chord {
   id: string;
   name: string;
   start: number;

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Chord } from '../../constant';
+import { Chord } from '../../stores/useTabStore';
 import { useTabStore } from '../../stores';
 import ChordGrid from './ChordGrid';
 interface ChordBoxProps {
