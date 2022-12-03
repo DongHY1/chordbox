@@ -9,7 +9,6 @@ export function getFretName(start:number,string:number,tab:number):string{
     const baseNote = ['C','#C','D','#D','E','F','#F','G','#G','A','#A','B']
     const noteIndex = (baseNote.indexOf(openNote.get(string)) + start) % baseNote.length
     const stringNote = [...baseNote.slice(noteIndex,baseNote.length),...baseNote.slice(0,noteIndex)]
-    console.log(stringNote[0])
     if(tab===-1) return stringNote[0]
     return stringNote[tab]
 }
