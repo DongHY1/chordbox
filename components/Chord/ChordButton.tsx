@@ -22,7 +22,7 @@ export default function ChordButton({
       onClick={() => updateChordPosition(lineId, chordId, string, bar)}
     > 
       {open?(
-      <div className={'w-5 h-5 bg-black rounded-full'}>
+      <div className={'w-5 h-5 bg-black  rounded-full'}>
           <div className='text-xs text-slate-50 pt-1'>{fretName}</div>
       </div>
       ):(
