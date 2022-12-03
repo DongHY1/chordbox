@@ -22,7 +22,7 @@ const Tab = (props: any, ref: any) => {
           <div className="flex flex-col  bg-slate-300 basis-1/3" key={item.id}>
             <div className="basis-1/12 text-center text-xl">{item.title}</div>
             <div className="flex flex-row justify-start basis-11/12">
-              {item.chords.map((chord, index) => (
+              {item.chords.map((chord) => (
                 <ChordBox key={chord.id} chord={chord} lineId={item.id} />
               ))}
             </div>

@@ -23,7 +23,9 @@ export default function ChordFret({
     >
       <div className="flex justify-center ">
         {open ? (
-          <div className="w-3 h-3 border rounded-full border-gray-900"></div>
+          <div className="w-4 h-4 border rounded-full border-gray-900">
+            <div className='text-xs opacity-0 hover:opacity-100'>E</div>
+          </div>
         ) : (
           <Image src={cross} className="w-3 h-3 " alt="cross svg" />
         )}

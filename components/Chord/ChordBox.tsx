@@ -65,7 +65,6 @@ export default function ChordBox({
             </div>
           </aside>
           <main className="grid grid-flow-col auto-cols-fr bg-fuchsia-300  basis-5/6">
-            {/* 六弦一品处渲染 */}
             <ChordGrid
               string={6}
               start={chordStart}
