@@ -1,3 +1,3 @@
 import useHasMounted from './useHasMounted';
-
-export { useHasMounted };
+import useFretName from './useFretName';
+export { useHasMounted,useFretName };

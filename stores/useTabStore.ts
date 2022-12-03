@@ -115,6 +115,7 @@ export const useTabStore = create<TabState>()(
         set((state) => ({ lines: getDuplicateLines(id, state.lines) })),
       updateRowTitle: (id, title) =>
         set((state) => ({ lines: getNewTitleLines(id, title, state.lines) })),
+      
     }),
     {
       name: 'tabstorage',
