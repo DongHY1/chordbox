@@ -15,7 +15,8 @@ export default function ChordButton({
   open,
 }: ChordButtonProps) {
   const updateChordPosition = useTabStore((state) => state.updateChordPosition);
-  const fretName = useFretName(string,bar)
+  const getChordStart = useTabStore((state) => state.getChordStart);
+  const fretName = useFretName(getChordStart(lineId,chordId),string,bar)
   return (
     <button
       className="flex justify-center  border-t border-b border-indigo-600"

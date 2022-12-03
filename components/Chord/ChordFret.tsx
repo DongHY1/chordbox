@@ -17,7 +17,8 @@ export default function ChordFret({
   open,
 }: ChordFretProps) {
   const updateChordPosition = useTabStore((state) => state.updateChordPosition);
-  const fretName = useFretName(string,bar)
+  const getChordStart = useTabStore((state) => state.getChordStart);
+  const fretName = useFretName(getChordStart(lineId,chordId),string,bar)
   return (
     <button
       className="border-b border-indigo-600 "
@@ -29,7 +30,7 @@ export default function ChordFret({
             <div className='text-xs opacity-0 hover:opacity-100'>{fretName}</div>
           </div>
         ) : (
-          <Image src={cross} className="w-3 h-3 " alt="cross svg" />
+          <Image src={cross} className="w-3 h-3" alt="cross svg" />
         )}
       </div>
     </button>
