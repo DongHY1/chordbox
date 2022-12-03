@@ -43,6 +43,7 @@ interface TabState {
   ) => void;
   updateRowTitle: (id: string, title: string) => void;
   getChordStart: (lineId: string, chordId: string) => number;
+  getChord: (lineId: string, chordId: string) => Chord;
 }
 const hashStorage: StateStorage = {
   getItem: (key): string => {
@@ -82,6 +83,14 @@ export const useTabStore = create<TabState>()(
         set((state) => ({ lines: [...state.lines, line] })),
       addChord: (id) =>
         set((state) => ({ lines: getNewChordLine(id, state.lines) })),
+      getChord:(lineId,chordId) => {
+          const lines:Array<Line> = get().lines
+          // 通过lineId 找到 line
+          const lineIndex = lines.findIndex((line) => line.id === lineId);
+          const target = lines[lineIndex];
+          const chord = target.chords.find((chord)=>chord.id === chordId)
+          return chord!
+      },
       deleteChord: (lineId, chordId) =>
         set((state) => ({
           lines: getDeleteChord(lineId, chordId, state.lines),

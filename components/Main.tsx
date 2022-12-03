@@ -9,6 +9,10 @@ export default function Main() {
   const handleTabPrint = () => {
     printRef.current && printRef.current.handleTabPrintClick();
   };
+  const handleShareClick = ()=>{
+    navigator.clipboard.writeText(location.href);
+    alert('is Copyed!')
+  }
   return (
     <>
       <div className="flex flex-col h-screen">
@@ -20,9 +24,12 @@ export default function Main() {
           <aside className="flex flex-col basis-1/4 bg-sky-500">
             <SongForm />
             <ChordForm />
-            <button type="button" onClick={handleTabPrint}>
-              打印
-            </button>
+              <button type="button" onClick={handleShareClick} className="border border-cyan-800 rounded-lg">
+                分享
+              </button>
+              <button type="button" onClick={handleTabPrint} className="border border-cyan-800 rounded-lg">
+                打印
+              </button>
           </aside>
         </div>
       </div>

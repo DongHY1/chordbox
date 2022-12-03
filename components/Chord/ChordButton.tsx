@@ -1,4 +1,4 @@
-import { useFretName } from '../../hooks';
+import {  useFretName } from '../../hooks';
 import { useTabStore } from '../../stores';
 interface ChordButtonProps {
   lineId: string;

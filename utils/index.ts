@@ -1,2 +1,2 @@
-import { getFretName } from "./getFretName";
+import { getFretName} from "./getFretName";
 export {getFretName}

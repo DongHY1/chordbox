@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Chord } from '../../stores/useTabStore';
 import { useTabStore } from '../../stores';
 import ChordGrid from './ChordGrid';
+import { useChordName } from '../../hooks';
 interface ChordBoxProps {
   chord: Chord;
   lineId: string;
@@ -19,10 +20,13 @@ export default function ChordBox({
   const updateChordName = useTabStore((state) => state.updateChordName);
   const addChordStart = useTabStore((state) => state.addChordStart);
   const decreaseChordStart = useTabStore((state) => state.decreaseChordStart);
-
+  const chords = useChordName(lineId,chordId)
   const [isChordStartClick, setIsChordStartClick] = useState(false);
   return (
     <div className="flex flex-col basis-1/6 bg-red-100 m-2 h-36 ">
+      {chords.map((chord)=>(
+        <div key={chord.name} className='text-xl'>{chord.name}</div>
+      ))}
       <div className="flex justify-center  basis-1/6 text-center bg-teal-100">
         <input
           className="text-center bg-transparent mr-3  -px-1 focus:outline-none"
