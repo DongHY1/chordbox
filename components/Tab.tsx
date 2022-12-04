@@ -3,7 +3,7 @@ import { useTabStore } from '../stores';
 import ChordBox from './Chord/ChordBox';
 import TabHeader from './TabHeader';
 import { useReactToPrint } from 'react-to-print';
-const Tab = (props:undefined, ref:any) => {
+const Tab = (props:any, ref:any) => {
   const tabRef = useRef(null);
   const lines = useTabStore((state) => state.lines);
   const handleTabPrint = useReactToPrint({

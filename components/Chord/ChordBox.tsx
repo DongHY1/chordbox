@@ -74,7 +74,7 @@ export default function ChordBox({
             </div>
           </aside>
           <main className="grid grid-flow-col auto-cols-fr bg-fuchsia-300  basis-5/6">
-            {[1,2,3,4,5,6].map((string)=>(
+            {[6,5,4,3,2,1].map((string)=>(
                           <ChordGrid
                           key={string}
                           string={string}
