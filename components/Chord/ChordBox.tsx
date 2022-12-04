@@ -22,20 +22,24 @@ export default function ChordBox({
   const addChordStart = useTabStore((state) => state.addChordStart);
   const decreaseChordStart = useTabStore((state) => state.decreaseChordStart);
   const chords = useChordName(lineId,chordId)
+  const [chordIndex,setChordIndex] = useState(0)
   const [isChordStartClick, setIsChordStartClick] = useState(false);
   return (
     <div className="flex flex-col basis-1/6 bg-red-100 m-2 h-36 ">
-      {chords.map((chord)=>(
-        <div key={chord.name} className='text-xl'>{chord.name}</div>
-      ))}
       <div className="flex justify-center  basis-1/6 text-center bg-teal-100">
         <input
           className="text-center bg-transparent mr-3  -px-1 focus:outline-none"
-          value={chordName}
+          value={chords[chordIndex].name}
           onChange={(event) =>
             updateChordName(lineId, chordId, event.target.value)
           }
         />
+        <div
+          className="h-full m-auto cursor-pointer"
+          onClick={() => {setChordIndex((chordIndex+1)%chords.length)}}
+        >
+          🔄
+        </div>
         <div
           className="h-full m-auto cursor-pointer"
           onClick={() => deleteChord(lineId, chordId)}
