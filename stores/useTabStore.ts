@@ -231,6 +231,7 @@ export function getUpdateChordName(
   );
   const targetChord = targetLine.chords[chordIndex];
   targetChord.name = chordName;
+  console.log(targetChord)
   const newLines = lines.map((line) => {
     return line.id === targetLine.id ? targetLine : line;
   });

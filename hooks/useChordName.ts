@@ -1,5 +1,5 @@
 import {Chord} from 'chord-name'
-import { indexToString, useTabStore } from '../stores';
+import { useTabStore } from '../stores';
 import { getFretName, getIndexToString } from '../utils';
 export default function useChordName(lineId:string,chordId:string):Array<any> {
   const getChord = useTabStore((store)=>store.getChord)
