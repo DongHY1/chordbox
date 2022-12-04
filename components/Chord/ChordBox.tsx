@@ -36,6 +36,12 @@ export default function ChordBox({
         />
         <div
           className="h-full m-auto cursor-pointer"
+          onClick={() => {console.log(123)}}
+        >
+          🎵
+        </div>
+        <div
+          className="h-full m-auto cursor-pointer"
           onClick={() => {setChordIndex((chordIndex+1)%chords.length)}}
         >
           🔄
