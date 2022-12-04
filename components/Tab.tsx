@@ -3,14 +3,14 @@ import { useTabStore } from '../stores';
 import ChordBox from './Chord/ChordBox';
 import TabHeader from './TabHeader';
 import { useReactToPrint } from 'react-to-print';
-const Tab = (props: any, ref: any) => {
+const Tab = (props:undefined, ref:any) => {
   const tabRef = useRef(null);
   const lines = useTabStore((state) => state.lines);
   const handleTabPrint = useReactToPrint({
     content: () => tabRef.current,
   });
   useImperativeHandle(ref, () => ({
-    handleTabPrintClick() {
+    handleTabPrintClick():any {
       handleTabPrint();
     },
   }));

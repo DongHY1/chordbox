@@ -1,2 +1,3 @@
 import { useTabStore, getNewLine } from './useTabStore';
-export { useTabStore, getNewLine };
+import {openNote,baseNote,indexToString} from './constant'
+export { useTabStore, getNewLine,openNote,baseNote,indexToString};

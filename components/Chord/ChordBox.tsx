@@ -3,6 +3,7 @@ import { Chord } from '../../stores/useTabStore';
 import { useTabStore } from '../../stores';
 import ChordGrid from './ChordGrid';
 import { useChordName } from '../../hooks';
+import { getIndexToString } from '../../utils';
 interface ChordBoxProps {
   chord: Chord;
   lineId: string;
@@ -69,48 +70,17 @@ export default function ChordBox({
             </div>
           </aside>
           <main className="grid grid-flow-col auto-cols-fr bg-fuchsia-300  basis-5/6">
-            <ChordGrid
-              string={6}
-              start={chordStart}
-              position={chordPosition.six}
-              lineId={lineId}
-              chordId={chordId}
-            />
-            <ChordGrid
-              string={5}
-              start={chordStart}
-              position={chordPosition.five}
-              lineId={lineId}
-              chordId={chordId}
-            />
-            <ChordGrid
-              string={4}
-              start={chordStart}
-              position={chordPosition.four}
-              lineId={lineId}
-              chordId={chordId}
-            />
-            <ChordGrid
-              string={3}
-              start={chordStart}
-              position={chordPosition.three}
-              lineId={lineId}
-              chordId={chordId}
-            />
-            <ChordGrid
-              string={2}
-              start={chordStart}
-              position={chordPosition.two}
-              lineId={lineId}
-              chordId={chordId}
-            />
-            <ChordGrid
-              string={1}
-              start={chordStart}
-              position={chordPosition.one}
-              lineId={lineId}
-              chordId={chordId}
-            />
+            {[1,2,3,4,5,6].map((string)=>(
+                          <ChordGrid
+                          key={string}
+                          string={string}
+                          start={chordStart}
+                          // @ts-ignore
+                          position={chordPosition[getIndexToString(string)]}
+                          lineId={lineId}
+                          chordId={chordId}
+                        />
+            ))}
           </main>
         </div>
       </div>

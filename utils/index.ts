@@ -1,2 +1,3 @@
 import { getFretName} from "./getFretName";
-export {getFretName}
+import { getIndexToString } from "./getIndexToString";
+export {getFretName,getIndexToString}
