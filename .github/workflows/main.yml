@@ -1,5 +1,5 @@
 name: ci
-on: [push]
+on: [push,pull_request]
 jobs:
   cypress-run:
     runs-on: ubuntu-20.04
@@ -41,4 +41,4 @@ jobs:
         with:
           install: false
           # to run component tests we need to use "cypress run-ct"
-          command: pnpm run component
+          command: pnpm run test:component
