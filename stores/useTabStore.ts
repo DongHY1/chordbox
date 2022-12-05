@@ -5,14 +5,7 @@ export interface Chord {
   id: string;
   name: string;
   start: number;
-  position: {
-    one: number;
-    two: number;
-    three: number;
-    four: number;
-    five: number;
-    six: number;
-  };
+  position: Record<'one' | 'two' | 'three' | 'four' | 'five' | 'six', number>;
 }
 export interface Line {
   id: string;
@@ -71,7 +64,7 @@ const hashStorage: StateStorage = {
 
 export const useTabStore = create<TabState>()(
   persist(
-    (set,get) => ({
+    (set, get) => ({
       songName: '普通朋友',
       author: 'David Tao',
       description: '这是一个示范',
@@ -83,13 +76,13 @@ export const useTabStore = create<TabState>()(
         set((state) => ({ lines: [...state.lines, line] })),
       addChord: (id) =>
         set((state) => ({ lines: getNewChordLine(id, state.lines) })),
-      getChord:(lineId,chordId) => {
-          const lines:Array<Line> = get().lines
-          // 通过lineId 找到 line
-          const lineIndex = lines.findIndex((line) => line.id === lineId);
-          const target = lines[lineIndex];
-          const chord = target.chords.find((chord)=>chord.id === chordId)
-          return chord!
+      getChord: (lineId, chordId) => {
+        const lines: Array<Line> = get().lines;
+        // 通过lineId 找到 line
+        const lineIndex = lines.findIndex((line) => line.id === lineId);
+        const target = lines[lineIndex];
+        const chord = target.chords.find((chord) => chord.id === chordId);
+        return chord!;
       },
       deleteChord: (lineId, chordId) =>
         set((state) => ({
@@ -125,15 +118,14 @@ export const useTabStore = create<TabState>()(
         set((state) => ({ lines: getDuplicateLines(id, state.lines) })),
       updateRowTitle: (id, title) =>
         set((state) => ({ lines: getNewTitleLines(id, title, state.lines) })),
-      getChordStart:(lineId,chordId) => {
-        const lines:Array<Line> = get().lines
+      getChordStart: (lineId, chordId) => {
+        const lines: Array<Line> = get().lines;
         // 通过lineId 找到 line
         const lineIndex = lines.findIndex((line) => line.id === lineId);
         const target = lines[lineIndex];
-        const chord = target.chords.find((chord)=>chord.id === chordId)
-        return chord!.start
-      }
-      
+        const chord = target.chords.find((chord) => chord.id === chordId);
+        return chord!.start;
+      },
     }),
     {
       name: 'tabstorage',
@@ -231,7 +223,7 @@ export function getUpdateChordName(
   );
   const targetChord = targetLine.chords[chordIndex];
   targetChord.name = chordName;
-  console.log(targetChord)
+  console.log(targetChord);
   const newLines = lines.map((line) => {
     return line.id === targetLine.id ? targetLine : line;
   });

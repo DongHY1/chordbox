@@ -21,8 +21,8 @@ export default function ChordBox({
   const updateChordName = useTabStore((state) => state.updateChordName);
   const addChordStart = useTabStore((state) => state.addChordStart);
   const decreaseChordStart = useTabStore((state) => state.decreaseChordStart);
-  const chords = useChordName(lineId,chordId)
-  const [chordIndex,setChordIndex] = useState(0)
+  const chords = useChordName(lineId, chordId);
+  const [chordIndex, setChordIndex] = useState(0);
   const [isChordStartClick, setIsChordStartClick] = useState(false);
   return (
     <div className="flex flex-col basis-1/6 bg-red-100 m-2 h-36 ">
@@ -36,13 +36,17 @@ export default function ChordBox({
         />
         <div
           className="h-full m-auto cursor-pointer"
-          onClick={() => {console.log(123)}}
+          onClick={() => {
+            console.log(123);
+          }}
         >
           🎵
         </div>
         <div
           className="h-full m-auto cursor-pointer"
-          onClick={() => {setChordIndex((chordIndex+1)%chords.length)}}
+          onClick={() => {
+            setChordIndex((chordIndex + 1) % chords.length);
+          }}
         >
           🔄
         </div>
@@ -80,16 +84,16 @@ export default function ChordBox({
             </div>
           </aside>
           <main className="grid grid-flow-col auto-cols-fr bg-fuchsia-300  basis-5/6">
-            {[6,5,4,3,2,1].map((string)=>(
-                          <ChordGrid
-                          key={string}
-                          string={string}
-                          start={chordStart}
-                          // @ts-ignore
-                          position={chordPosition[getIndexToString(string)]}
-                          lineId={lineId}
-                          chordId={chordId}
-                        />
+            {[6, 5, 4, 3, 2, 1].map((string) => (
+              <ChordGrid
+                key={string}
+                string={string}
+                start={chordStart}
+                // @ts-ignore
+                position={chordPosition[getIndexToString(string)]}
+                lineId={lineId}
+                chordId={chordId}
+              />
             ))}
           </main>
         </div>
