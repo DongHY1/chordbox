@@ -40,4 +40,4 @@ jobs:
         uses: cypress-io/github-action@v2
         with:
           # to run component tests we need to use "cypress run-ct"
-          command: npm run component
+          command: pnpm run component
