@@ -1,25 +1,31 @@
-name: CI
+name: End-to-end tests, Component tests, eslint check
 
-on: [push]
+on: [push,pull_request]
 
 jobs:
-  cypress:
-    runs-on: ubuntu-latest
+  cypress-run:
+    runs-on: ubuntu-20.04
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v1
-      with:
-        node-version: 12.x
-    - run: npm ci
-    - run: npm run build
-    - run: npm run cypress:run
+      - name: Run Component tests 🧪
+        uses: actions/checkout@v2
+      - name: Cypress run
+        uses: cypress-io/github-action@v4
+        with:
+          build: npm run build
+      - name: Run Component tests 🧪
+      - uses: cypress-io/github-action@v4
+        with:
+          browser: chrome
+          install: false
+          component: true
   lint:
+  - name: Run Eslint checkout
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v1
-      with:
-        node-version: 12.x
-    - run: npm ci
-    - run: npm run build
-    - run: npm run lint
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - run: npm ci
+      - run: npm run build
+      - run: npm run lint

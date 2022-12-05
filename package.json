@@ -7,8 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "cypress": "cypress open",
-    "cypress:run": "cypress run"
+    "e2e": "cypress open --e2e",
+    "component": "cypress open --component"
   },
   "dependencies": {
     "@next/font": "^13.0.4",
