@@ -39,5 +39,6 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v2
         with:
+          install: false
           # to run component tests we need to use "cypress run-ct"
           command: pnpm run component
