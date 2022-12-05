@@ -3,14 +3,14 @@ import { useTabStore } from '../stores';
 import ChordBox from './Chord/ChordBox';
 import TabHeader from './TabHeader';
 import { useReactToPrint } from 'react-to-print';
-const Tab = (props: any, ref: any) => {
+const Tab = (props:any, ref:any) => {
   const tabRef = useRef(null);
   const lines = useTabStore((state) => state.lines);
   const handleTabPrint = useReactToPrint({
     content: () => tabRef.current,
   });
   useImperativeHandle(ref, () => ({
-    handleTabPrintClick() {
+    handleTabPrintClick():any {
       handleTabPrint();
     },
   }));
@@ -22,7 +22,7 @@ const Tab = (props: any, ref: any) => {
           <div className="flex flex-col  bg-slate-300 basis-1/3" key={item.id}>
             <div className="basis-1/12 text-center text-xl">{item.title}</div>
             <div className="flex flex-row justify-start basis-11/12">
-              {item.chords.map((chord, index) => (
+              {item.chords.map((chord) => (
                 <ChordBox key={chord.id} chord={chord} lineId={item.id} />
               ))}
             </div>

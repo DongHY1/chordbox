@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Chord } from '../../stores/useTabStore';
 import { useTabStore } from '../../stores';
 import ChordGrid from './ChordGrid';
+import { useChordName } from '../../hooks';
+import { getIndexToString } from '../../utils';
 interface ChordBoxProps {
   chord: Chord;
   lineId: string;
@@ -19,18 +21,31 @@ export default function ChordBox({
   const updateChordName = useTabStore((state) => state.updateChordName);
   const addChordStart = useTabStore((state) => state.addChordStart);
   const decreaseChordStart = useTabStore((state) => state.decreaseChordStart);
-
+  const chords = useChordName(lineId,chordId)
+  const [chordIndex,setChordIndex] = useState(0)
   const [isChordStartClick, setIsChordStartClick] = useState(false);
   return (
     <div className="flex flex-col basis-1/6 bg-red-100 m-2 h-36 ">
       <div className="flex justify-center  basis-1/6 text-center bg-teal-100">
         <input
           className="text-center bg-transparent mr-3  -px-1 focus:outline-none"
-          value={chordName}
+          value={chords[chordIndex].name}
           onChange={(event) =>
             updateChordName(lineId, chordId, event.target.value)
           }
         />
+        <div
+          className="h-full m-auto cursor-pointer"
+          onClick={() => {console.log(123)}}
+        >
+          🎵
+        </div>
+        <div
+          className="h-full m-auto cursor-pointer"
+          onClick={() => {setChordIndex((chordIndex+1)%chords.length)}}
+        >
+          🔄
+        </div>
         <div
           className="h-full m-auto cursor-pointer"
           onClick={() => deleteChord(lineId, chordId)}
@@ -65,49 +80,17 @@ export default function ChordBox({
             </div>
           </aside>
           <main className="grid grid-flow-col auto-cols-fr bg-fuchsia-300  basis-5/6">
-            {/* 六弦一品处渲染 */}
-            <ChordGrid
-              string={6}
-              start={chordStart}
-              position={chordPosition.six}
-              lineId={lineId}
-              chordId={chordId}
-            />
-            <ChordGrid
-              string={5}
-              start={chordStart}
-              position={chordPosition.five}
-              lineId={lineId}
-              chordId={chordId}
-            />
-            <ChordGrid
-              string={4}
-              start={chordStart}
-              position={chordPosition.four}
-              lineId={lineId}
-              chordId={chordId}
-            />
-            <ChordGrid
-              string={3}
-              start={chordStart}
-              position={chordPosition.three}
-              lineId={lineId}
-              chordId={chordId}
-            />
-            <ChordGrid
-              string={2}
-              start={chordStart}
-              position={chordPosition.two}
-              lineId={lineId}
-              chordId={chordId}
-            />
-            <ChordGrid
-              string={1}
-              start={chordStart}
-              position={chordPosition.one}
-              lineId={lineId}
-              chordId={chordId}
-            />
+            {[6,5,4,3,2,1].map((string)=>(
+                          <ChordGrid
+                          key={string}
+                          string={string}
+                          start={chordStart}
+                          // @ts-ignore
+                          position={chordPosition[getIndexToString(string)]}
+                          lineId={lineId}
+                          chordId={chordId}
+                        />
+            ))}
           </main>
         </div>
       </div>

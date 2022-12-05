@@ -7,6 +7,7 @@ specifiers:
   '@types/react-dom': 18.0.9
   '@types/uuid': ^9.0.0
   autoprefixer: ^10.4.13
+  chord-name: ^1.0.1
   cypress: ^11.2.0
   eslint: 8.28.0
   eslint-config-next: 13.0.4
@@ -26,6 +27,7 @@ dependencies:
   '@types/node': 18.11.9
   '@types/react': 18.0.25
   '@types/react-dom': 18.0.9
+  chord-name: 1.0.1
   eslint: 8.28.0
   eslint-config-next: 13.0.4_hsf322ms6xhhd4b5ne6lb74y4a
   next: 13.0.4_biqbaboplfbrettd7655fr4n2y
@@ -41,7 +43,7 @@ devDependencies:
   cypress: 11.2.0
   postcss: 8.4.19
   react-icons: 4.6.0_react@18.2.0
-  tailwindcss: 3.2.4
+  tailwindcss: 3.2.4_postcss@8.4.19
   uuid: 9.0.0
 
 packages:
@@ -751,6 +753,10 @@ packages:
     optionalDependencies:
       fsevents: 2.3.2
     dev: true
+
+  /chord-name/1.0.1:
+    resolution: {integrity: sha512-5FWRsUjELH/WUJe0T5D8rFO/dyFWhInoC1T+vUeeW8kYyji19v/4NB2cmRWUpgmZ7Rj0kU/hrk8v73ohzU78Nw==}
+    dev: false
 
   /ci-info/3.7.0:
     resolution: {integrity: sha512-2CpRNYmImPx+RXKLq6jko/L07phmS9I02TyqkcNU20GCF/GgaWvc58hPtjxDX8lPpkdwc9sNh72V9k00S7ezog==}
@@ -2894,10 +2900,12 @@ packages:
       tslib: 2.4.1
     dev: false
 
-  /tailwindcss/3.2.4:
+  /tailwindcss/3.2.4_postcss@8.4.19:
     resolution: {integrity: sha512-AhwtHCKMtR71JgeYDaswmZXhPcW9iuI9Sp2LvZPo9upDZ7231ZJ7eA9RaURbhpXGVlrjX4cFNlB4ieTetEb7hQ==}
     engines: {node: '>=12.13.0'}
     hasBin: true
+    peerDependencies:
+      postcss: ^8.0.9
     dependencies:
       arg: 5.0.2
       chokidar: 3.5.3

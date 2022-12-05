@@ -1,3 +1,4 @@
 import useHasMounted from './useHasMounted';
-
-export { useHasMounted };
+import useFretName from './useFretName';
+import useChordName from './useChordName';
+export { useHasMounted,useFretName,useChordName};

@@ -42,6 +42,8 @@ interface TabState {
     position: number
   ) => void;
   updateRowTitle: (id: string, title: string) => void;
+  getChordStart: (lineId: string, chordId: string) => number;
+  getChord: (lineId: string, chordId: string) => Chord;
 }
 const hashStorage: StateStorage = {
   getItem: (key): string => {
@@ -69,7 +71,7 @@ const hashStorage: StateStorage = {
 
 export const useTabStore = create<TabState>()(
   persist(
-    (set) => ({
+    (set,get) => ({
       songName: '普通朋友',
       author: 'David Tao',
       description: '这是一个示范',
@@ -81,6 +83,14 @@ export const useTabStore = create<TabState>()(
         set((state) => ({ lines: [...state.lines, line] })),
       addChord: (id) =>
         set((state) => ({ lines: getNewChordLine(id, state.lines) })),
+      getChord:(lineId,chordId) => {
+          const lines:Array<Line> = get().lines
+          // 通过lineId 找到 line
+          const lineIndex = lines.findIndex((line) => line.id === lineId);
+          const target = lines[lineIndex];
+          const chord = target.chords.find((chord)=>chord.id === chordId)
+          return chord!
+      },
       deleteChord: (lineId, chordId) =>
         set((state) => ({
           lines: getDeleteChord(lineId, chordId, state.lines),
@@ -115,6 +125,15 @@ export const useTabStore = create<TabState>()(
         set((state) => ({ lines: getDuplicateLines(id, state.lines) })),
       updateRowTitle: (id, title) =>
         set((state) => ({ lines: getNewTitleLines(id, title, state.lines) })),
+      getChordStart:(lineId,chordId) => {
+        const lines:Array<Line> = get().lines
+        // 通过lineId 找到 line
+        const lineIndex = lines.findIndex((line) => line.id === lineId);
+        const target = lines[lineIndex];
+        const chord = target.chords.find((chord)=>chord.id === chordId)
+        return chord!.start
+      }
+      
     }),
     {
       name: 'tabstorage',
@@ -212,6 +231,7 @@ export function getUpdateChordName(
   );
   const targetChord = targetLine.chords[chordIndex];
   targetChord.name = chordName;
+  console.log(targetChord)
   const newLines = lines.map((line) => {
     return line.id === targetLine.id ? targetLine : line;
   });
