@@ -8,13 +8,10 @@ jobs:
     steps:
       - name: Run Component tests 🧪
         uses: actions/checkout@v2
-      - name: Cypress run
-        uses: cypress-io/github-action@v4
-        with:
-          build: npm run build
       - name: Run Component tests 🧪
       - uses: cypress-io/github-action@v4
         with:
+          build: npm run build
           browser: chrome
           install: false
           component: true
