@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "next lint",
     "e2e": "cypress open --e2e",
-    "component": "cypress open --component"
+    "component": "cypress open --component",
+    "test:component":"cypress run --component",
+    "test:e2e":"cypress run --e2e"
   },
   "dependencies": {
     "@next/font": "^13.0.4",
