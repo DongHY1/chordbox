@@ -13,33 +13,31 @@ export default function Main() {
     alert('is Copyed!');
   };
   return (
-    <>
-      <div className="flex flex-col h-screen">
-        <Header />
-        <div className="flex flex-row basis-11/12">
-          <main className="basis-3/4 bg-indigo-500">
-            <Tab ref={printRef} />
-          </main>
-          <aside className="flex flex-col basis-1/4 bg-sky-500">
-            <SongForm />
-            <ChordForm />
-            <button
-              type="button"
-              onClick={handleShareClick}
-              className="border border-cyan-800 rounded-lg"
-            >
-              分享
-            </button>
-            <button
-              type="button"
-              onClick={handleTabPrint}
-              className="border border-cyan-800 rounded-lg"
-            >
-              打印
-            </button>
-          </aside>
-        </div>
+    <div className="flex flex-col h-screen">
+      <Header />
+      <div className="flex flex-row basis-11/12">
+        <main className="basis-3/4 bg-indigo-500">
+          <Tab ref={printRef} />
+        </main>
+        <aside className="flex flex-col basis-1/4 bg-sky-500">
+          <SongForm />
+          <ChordForm />
+          <button
+            type="button"
+            onClick={handleShareClick}
+            className="border border-cyan-800 rounded-lg"
+          >
+            分享
+          </button>
+          <button
+            type="button"
+            onClick={handleTabPrint}
+            className="border border-cyan-800 rounded-lg"
+          >
+            打印
+          </button>
+        </aside>
       </div>
-    </>
+    </div>
   );
 }

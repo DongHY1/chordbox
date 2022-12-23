@@ -20,94 +20,92 @@ export default function ChordGrid({
   if (position === -1) {
     return (
       <section className="grid grid-flow-row auto-rows-fr">
-        {[0, 1, 2, 3, 4].map((bar) =>{
-          if(bar === 0 ){
+        {[0, 1, 2, 3, 4].map((bar) => {
+          if (bar === 0) {
             return (
               <ChordFret
-              key={bar}
-              string={string}
-              bar={bar}
-              open={false}
-              lineId={lineId}
-              chordId={chordId}
-        />
-            )
-          }else{
+                key={bar + start}
+                string={string}
+                bar={bar + start}
+                open={false}
+                lineId={lineId}
+                chordId={chordId}
+              />
+            );
+          } else {
             return (
               <ChordButton
-              key={bar}
-              string={string}
-              bar={bar}
-              open={position===bar}
-              lineId={lineId}
-              chordId={chordId}
-        />
-            )
+                key={bar + start}
+                string={string}
+                bar={bar + start}
+                open={position === bar + start}
+                lineId={lineId}
+                chordId={chordId}
+              />
+            );
           }
         })}
       </section>
-    )
+    );
   } else if (position === start || position === 0) {
     return (
       <section className="grid grid-flow-row auto-rows-fr">
-        {[0, 1, 2, 3, 4].map((bar) =>{
-          if(bar === 0 ){
+        {[0, 1, 2, 3, 4].map((bar) => {
+          if (bar === 0) {
             return (
               <ChordFret
-              key={bar}
-              string={string}
-              bar={bar}
-              open={true}
-              lineId={lineId}
-              chordId={chordId}
-        />
-            )
-          }else{
+                key={bar + start}
+                string={string}
+                bar={bar + start}
+                open={true}
+                lineId={lineId}
+                chordId={chordId}
+              />
+            );
+          } else {
             return (
               <ChordButton
-              key={bar}
-              string={string}
-              bar={bar}
-              open={false}
-              lineId={lineId}
-              chordId={chordId}
-        />
-            )
+                key={bar + start}
+                string={string}
+                bar={bar}
+                open={false}
+                lineId={lineId}
+                chordId={chordId}
+              />
+            );
           }
         })}
       </section>
-    )
+    );
   } else {
     return (
       <section className="grid grid-flow-row auto-rows-fr">
-        {[0, 1, 2, 3, 4].map((bar) =>{
-          if(bar === 0 ){
+        {[0, 1, 2, 3, 4].map((bar) => {
+          if (bar === 0) {
             return (
               <ChordFret
-              key={bar}
-              string={string}
-              bar={bar}
-              open={position===bar}
-              lineId={lineId}
-              chordId={chordId}
-        />
-            )
-          }else{
+                key={bar + start}
+                string={string}
+                bar={bar + start}
+                open={position === bar + start}
+                lineId={lineId}
+                chordId={chordId}
+              />
+            );
+          } else {
             return (
               <ChordButton
-              key={bar}
-              string={string}
-              bar={bar}
-              open={position===bar}
-              lineId={lineId}
-              chordId={chordId}
-        />
-            )
+                key={bar + start}
+                string={string}
+                bar={bar + start}
+                open={position === bar + start}
+                lineId={lineId}
+                chordId={chordId}
+              />
+            );
           }
         })}
       </section>
-    )
+    );
   }
-
-  }
-
+}

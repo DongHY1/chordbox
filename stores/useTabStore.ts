@@ -78,7 +78,6 @@ export const useTabStore = create<TabState>()(
         set((state) => ({ lines: getNewChordLine(id, state.lines) })),
       getChord: (lineId, chordId) => {
         const lines: Array<Line> = get().lines;
-        // 通过lineId 找到 line
         const lineIndex = lines.findIndex((line) => line.id === lineId);
         const target = lines[lineIndex];
         const chord = target.chords.find((chord) => chord.id === chordId);
@@ -120,7 +119,6 @@ export const useTabStore = create<TabState>()(
         set((state) => ({ lines: getNewTitleLines(id, title, state.lines) })),
       getChordStart: (lineId, chordId) => {
         const lines: Array<Line> = get().lines;
-        // 通过lineId 找到 line
         const lineIndex = lines.findIndex((line) => line.id === lineId);
         const target = lines[lineIndex];
         const chord = target.chords.find((chord) => chord.id === chordId);

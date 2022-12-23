@@ -4,6 +4,7 @@ import { useTabStore } from '../../stores';
 import ChordGrid from './ChordGrid';
 import { useChordName } from '../../hooks';
 import { getIndexToString } from '../../utils';
+import { event } from 'cypress/types/jquery';
 interface ChordBoxProps {
   chord: Chord;
   lineId: string;
@@ -18,7 +19,6 @@ export default function ChordBox({
   lineId,
 }: ChordBoxProps) {
   const deleteChord = useTabStore((state) => state.deleteChord);
-  const updateChordName = useTabStore((state) => state.updateChordName);
   const addChordStart = useTabStore((state) => state.addChordStart);
   const decreaseChordStart = useTabStore((state) => state.decreaseChordStart);
   const chords = useChordName(lineId, chordId);
@@ -26,24 +26,10 @@ export default function ChordBox({
   const [isChordStartClick, setIsChordStartClick] = useState(false);
   return (
     <div className="flex flex-col basis-1/6 bg-red-100 m-2 h-36 ">
-      <div className="flex justify-center  basis-1/6 text-center bg-teal-100">
-        <input
-          className="text-center bg-transparent mr-3  -px-1 focus:outline-none"
-          value={chords[chordIndex].name}
-          onChange={(event) =>
-            updateChordName(lineId, chordId, event.target.value)
-          }
-        />
+      <div className="flex justify-evenly">
+        <div className="text-center basis-1/2">{chords[chordIndex].name}</div>
         <div
-          className="h-full m-auto cursor-pointer"
-          onClick={() => {
-            console.log(123);
-          }}
-        >
-          🎵
-        </div>
-        <div
-          className="h-full m-auto cursor-pointer"
+          className="h-full m-auto cursor-pointer basis-1/4"
           onClick={() => {
             setChordIndex((chordIndex + 1) % chords.length);
           }}
@@ -51,7 +37,7 @@ export default function ChordBox({
           🔄
         </div>
         <div
-          className="h-full m-auto cursor-pointer"
+          className="h-full m-auto cursor-pointer basis-1/4"
           onClick={() => deleteChord(lineId, chordId)}
         >
           🚮
