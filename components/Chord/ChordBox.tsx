@@ -1,21 +1,10 @@
 import React, { useState } from 'react';
-import { Chord } from '../../stores/useTabStore';
 import { useTabStore } from '../../stores';
 import ChordGrid from './ChordGrid';
 import { useChordName } from '../../hooks';
-import { getIndexToString } from '../../utils';
-import { event } from 'cypress/types/jquery';
-interface ChordBoxProps {
-  chord: Chord;
-  lineId: string;
-}
+import { ChordBoxProps } from '../../utils/interface';
 export default function ChordBox({
-  chord: {
-    id: chordId,
-    name: chordName,
-    start: chordStart,
-    position: chordPosition,
-  },
+  chord: { id: chordId, start: chordStart, position },
   lineId,
 }: ChordBoxProps) {
   const deleteChord = useTabStore((state) => state.deleteChord);
@@ -27,7 +16,7 @@ export default function ChordBox({
   return (
     <div className="flex flex-col basis-1/6 bg-red-100 m-2 h-36 ">
       <div className="flex justify-evenly">
-        <div className="text-center basis-1/2">{chords[chordIndex].name}</div>
+        <div className="text-center basis-1/2">{chords[0].name}</div>
         <div
           className="h-full m-auto cursor-pointer basis-1/4"
           onClick={() => {
@@ -70,15 +59,14 @@ export default function ChordBox({
             </div>
           </aside>
           <main className="grid grid-flow-col auto-cols-fr bg-fuchsia-300  basis-5/6">
-            {[6, 5, 4, 3, 2, 1].map((string) => (
+            {[5, 4, 3, 2, 1, 0].map((string) => (
               <ChordGrid
                 key={string}
                 string={string}
                 start={chordStart}
-                // @ts-ignore
-                position={chordPosition[getIndexToString(string)]}
                 lineId={lineId}
                 chordId={chordId}
+                position={position}
               />
             ))}
           </main>

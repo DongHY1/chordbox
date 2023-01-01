@@ -1,15 +1,12 @@
-import {Chord} from 'chord-name'
+import { Chord } from 'chord-name';
 import { useTabStore } from '../stores';
-import { getFretName, getIndexToString } from '../utils';
-export default function useChordName(lineId:string,chordId:string):Array<any> {
-  const getChord = useTabStore((store)=>store.getChord)
-  const chordObj = getChord(lineId,chordId)
-  const names: string[] = []
-  for(let i =1;i<=6;i++){
-    //@ts-ignore
-    names.push(getFretName(chordObj.start,i,chordObj.position[getIndexToString(i)]))
+import { getFretName } from '../utils';
+export default function useChordName(lineId: string, chordId: string) {
+  const getChord = useTabStore((store) => store.getChord);
+  const chordObj = getChord(lineId, chordId);
+  const names: string[] = [];
+  for (let i = 0; i < chordObj.position.length; i++) {
+    names.push(getFretName(chordObj.start, i, chordObj.position[i]));
   }
-  const res = new Chord(names).getNames()
-  return res
+  return new Chord(names).getNames();
 }
-

@@ -1,5 +1,7 @@
+import Image from 'next/image';
 import { useFretName } from '../../hooks';
 import { useTabStore } from '../../stores';
+import cross from '../../public/cross.svg';
 interface ChordButtonProps {
   lineId: string;
   chordId: string;
@@ -25,16 +27,24 @@ export default function ChordButton({
         updateChordPosition(lineId, chordId, string, bar);
       }}
     >
-      {open ? (
-        <div className={'w-5 h-5 bg-black  rounded-full'}>
-          <div className="text-xs text-slate-50 pt-1">{fretName}</div>
+      {bar !== 0 ? (
+        open ? (
+          <div className={'w-5 h-5 bg-black  rounded-full'}>
+            <div className="text-xs text-slate-50 pt-1">{fretName}</div>
+          </div>
+        ) : (
+          <div className="border-l border-indigo-900 h-full hover:w-5 hover:h-5 hover:border hover:rounded-full hover:border-gray-900">
+            <div className="hover:text-xs opacity-0 hover:opacity-100 hover:pt-0.5">
+              {fretName}
+            </div>
+          </div>
+        )
+      ) : open ? (
+        <div className="w-4 h-4 border rounded-full border-gray-900">
+          <div className="text-xs opacity-0 hover:opacity-100">{fretName}</div>
         </div>
       ) : (
-        <div className="border-l border-indigo-900 h-full hover:w-5 hover:h-5 hover:border hover:rounded-full hover:border-gray-900">
-          <div className="hover:text-xs opacity-0 hover:opacity-100 hover:pt-0.5">
-            {fretName}
-          </div>
-        </div>
+        <Image src={cross} className="w-3 h-3" alt="cross svg" />
       )}
     </button>
   );

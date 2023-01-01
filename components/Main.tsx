@@ -10,7 +10,6 @@ export default function Main() {
   };
   const handleShareClick = () => {
     navigator.clipboard.writeText(location.href);
-    alert('is Copyed!');
   };
   return (
     <div className="flex flex-col h-screen">

@@ -1,43 +1,8 @@
 import create from 'zustand';
 import { persist, StateStorage } from 'zustand/middleware';
 import { v4 } from 'uuid';
-export interface Chord {
-  id: string;
-  name: string;
-  start: number;
-  position: Record<'one' | 'two' | 'three' | 'four' | 'five' | 'six', number>;
-}
-export interface Line {
-  id: string;
-  title: string;
-  chords: Array<Chord>;
-}
-interface TabState {
-  songName: string;
-  author: string;
-  description: string;
-  lines: Array<Line>;
-  updateSongName: (song: string) => void;
-  updateAuthor: (author: string) => void;
-  updateDescription: (desc: string) => void;
-  addLines: (line: Line) => void;
-  deleteLines: (id: string) => void;
-  duplicateLines: (id: string) => void;
-  addChord: (id: string) => void;
-  deleteChord: (lineId: string, chordId: string) => void;
-  addChordStart: (lineId: string, chordId: string) => void;
-  decreaseChordStart: (lineId: string, chordId: string) => void;
-  updateChordName: (lineId: string, chordId: string, chordName: string) => void;
-  updateChordPosition: (
-    lineId: string,
-    chordId: string,
-    string: number,
-    position: number
-  ) => void;
-  updateRowTitle: (id: string, title: string) => void;
-  getChordStart: (lineId: string, chordId: string) => number;
-  getChord: (lineId: string, chordId: string) => Chord;
-}
+import { Line, TabState } from '../utils/interface';
+import { getLineAndChord, getNewChord, getNewLine } from '../utils';
 const hashStorage: StateStorage = {
   getItem: (key): string => {
     const hash = window && window.location.hash.slice(1);
@@ -101,13 +66,7 @@ export const useTabStore = create<TabState>()(
         })),
       updateChordPosition: (lineId, chordId, string, position) =>
         set((state) => ({
-          lines: getUpdateChordPosition(
-            lineId,
-            chordId,
-            string,
-            position,
-            state.lines
-          ),
+          lines: getUpdateChordPosition(lineId, chordId, position, state.lines),
         })),
       deleteLines: (id) =>
         set((state) => ({
@@ -118,10 +77,8 @@ export const useTabStore = create<TabState>()(
       updateRowTitle: (id, title) =>
         set((state) => ({ lines: getNewTitleLines(id, title, state.lines) })),
       getChordStart: (lineId, chordId) => {
-        const lines: Array<Line> = get().lines;
-        const lineIndex = lines.findIndex((line) => line.id === lineId);
-        const target = lines[lineIndex];
-        const chord = target.chords.find((chord) => chord.id === chordId);
+        const { targetLine } = getLineAndChord(get().lines, lineId, chordId);
+        const chord = targetLine.chords.find((chord) => chord.id === chordId);
         return chord!.start;
       },
     }),
@@ -173,53 +130,27 @@ export function getNewChordLine(id: string, lines: Array<Line>): Array<Line> {
   });
   return newLines;
 }
-export function getNewLine(): Line {
-  const emptyLine: Line = {
-    id: v4(),
-    title: 'Intro',
-    chords: [getNewChord()],
-  };
-  return emptyLine;
-}
-export function getNewChord(): Chord {
-  const emptyChord: Chord = {
-    id: v4(),
-    name: 'Input',
-    start: 0,
-    position: { one: 0, two: 0, three: 0, four: 0, five: 0, six: 0 },
-  };
-  return emptyChord;
-}
+
 export function getDeleteChord(
   lineId: string,
   chordId: string,
   lines: Array<Line>
 ): Array<Line> {
-  // 通过lineId 找到 line
-  const lineIndex = lines.findIndex((line) => line.id === lineId);
-  const target = lines[lineIndex];
-  // 通过该chordId 找到 line中对应的chord
-  const chords = target.chords.filter((chord) => chord.id !== chordId);
-  target.chords = chords;
+  const { targetLine } = getLineAndChord(lines, lineId, chordId);
+  targetLine.chords = targetLine.chords.filter((chord) => chord.id !== chordId);
   const newLines = lines.map((line) => {
-    return line.id === target.id ? target : line;
+    return line.id === targetLine.id ? targetLine : line;
   });
   return newLines;
 }
+
 export function getUpdateChordName(
   lineId: string,
   chordId: string,
   chordName: string,
   lines: Array<Line>
 ): Array<Line> {
-  // 通过lineId 找到 line
-  const lineIndex = lines.findIndex((line) => line.id === lineId);
-  const targetLine = lines[lineIndex];
-  // 通过该chordId 找到 line中对应的chord
-  const chordIndex = targetLine.chords.findIndex(
-    (chord) => chord.id === chordId
-  );
-  const targetChord = targetLine.chords[chordIndex];
+  const { targetLine, targetChord } = getLineAndChord(lines, lineId, chordId);
   targetChord.name = chordName;
   console.log(targetChord);
   const newLines = lines.map((line) => {
@@ -230,67 +161,15 @@ export function getUpdateChordName(
 export function getUpdateChordPosition(
   lineId: string,
   chordId: string,
-  chordString: number,
   chordPosition: number,
   lines: Array<Line>
 ): Array<Line> {
-  const lineIndex = lines.findIndex((line) => line.id === lineId);
-  const targetLine = lines[lineIndex];
-  const chordIndex = targetLine.chords.findIndex(
-    (chord) => chord.id === chordId
-  );
-  const targetChord = targetLine.chords[chordIndex];
-  switch (chordString) {
-    case 6:
-      if (targetChord.position.six === chordPosition) {
-        targetChord.position.six = -1;
-        break;
-      } else {
-        targetChord.position.six = chordPosition;
-        break;
-      }
-    case 5:
-      if (targetChord.position.five === chordPosition) {
-        targetChord.position.five = -1;
-        break;
-      } else {
-        targetChord.position.five = chordPosition;
-        break;
-      }
-    case 4:
-      if (targetChord.position.four === chordPosition) {
-        targetChord.position.four = -1;
-        break;
-      } else {
-        targetChord.position.four = chordPosition;
-        break;
-      }
-    case 3:
-      if (targetChord.position.three === chordPosition) {
-        targetChord.position.three = -1;
-        break;
-      } else {
-        targetChord.position.three = chordPosition;
-        break;
-      }
-    case 2:
-      if (targetChord.position.two === chordPosition) {
-        targetChord.position.two = -1;
-        break;
-      } else {
-        targetChord.position.two = chordPosition;
-        break;
-      }
-    case 1:
-      if (targetChord.position.one === chordPosition) {
-        targetChord.position.one = -1;
-        break;
-      } else {
-        targetChord.position.one = chordPosition;
-        break;
-      }
-  }
-
+  const { targetLine, targetChord } = getLineAndChord(lines, lineId, chordId);
+  targetChord.position.forEach((item, index) => {
+    if (item === chordPosition) {
+      targetChord.position[index] = -1;
+    }
+  });
   const newLines = lines.map((line) => {
     return line.id === targetLine.id ? targetLine : line;
   });
@@ -301,14 +180,7 @@ export function getAddChordStart(
   chordId: string,
   lines: Array<Line>
 ): Array<Line> {
-  // 通过lineId 找到 line
-  const lineIndex = lines.findIndex((line) => line.id === lineId);
-  const targetLine = lines[lineIndex];
-  // 通过该chordId 找到 line中对应的chord
-  const chordIndex = targetLine.chords.findIndex(
-    (chord) => chord.id === chordId
-  );
-  const targetChord = targetLine.chords[chordIndex];
+  const { targetLine, targetChord } = getLineAndChord(lines, lineId, chordId);
   targetChord.start++;
   const newLines = lines.map((line) => {
     return line.id === targetLine.id ? targetLine : line;
@@ -320,14 +192,7 @@ export function getDeleteChordStart(
   chordId: string,
   lines: Array<Line>
 ): Array<Line> {
-  // 通过lineId 找到 line
-  const lineIndex = lines.findIndex((line) => line.id === lineId);
-  const targetLine = lines[lineIndex];
-  // 通过该chordId 找到 line中对应的chord
-  const chordIndex = targetLine.chords.findIndex(
-    (chord) => chord.id === chordId
-  );
-  const targetChord = targetLine.chords[chordIndex];
+  const { targetLine, targetChord } = getLineAndChord(lines, lineId, chordId);
   targetChord.start > 0 ? targetChord.start-- : targetChord;
   const newLines = lines.map((line) => {
     return line.id === targetLine.id ? targetLine : line;
