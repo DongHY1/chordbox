@@ -172,7 +172,12 @@ export function getUpdateChordPosition(
   lines: Array<Line>
 ): Array<Line> {
   const { targetLine, targetChord } = getLineAndChord(lines, lineId, chordId);
-  targetChord.position[string - 1] = chordPosition;
+  if (chordPosition === 0) {
+    targetChord.position[string - 1] =
+      targetChord.position[string - 1] === -1 ? 0 : -1;
+  } else {
+    targetChord.position[string - 1] = chordPosition;
+  }
   return lines.map((line) => {
     return line.id === targetLine.id ? targetLine : line;
   });
