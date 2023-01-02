@@ -16,7 +16,7 @@ export default function ChordBox({
   return (
     <div className="flex flex-col basis-1/6 bg-red-100 m-2 h-36 ">
       <div className="flex justify-evenly">
-        <div className="text-center basis-1/2">{chords[0].name}</div>
+        <div className="text-center basis-1/2">{chords[chordIndex].name}</div>
         <div
           className="h-full m-auto cursor-pointer basis-1/4"
           onClick={() => {
@@ -59,14 +59,14 @@ export default function ChordBox({
             </div>
           </aside>
           <main className="grid grid-flow-col auto-cols-fr bg-fuchsia-300  basis-5/6">
-            {[5, 4, 3, 2, 1, 0].map((string) => (
+            {[1, 2, 3, 4, 5, 6].map((string, index) => (
               <ChordGrid
                 key={string}
                 string={string}
                 start={chordStart}
                 lineId={lineId}
                 chordId={chordId}
-                position={position}
+                position={position[index]}
               />
             ))}
           </main>

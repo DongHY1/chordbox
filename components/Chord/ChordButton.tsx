@@ -8,6 +8,7 @@ interface ChordButtonProps {
   bar: number;
   string: number;
   open: boolean;
+  start: number;
 }
 export default function ChordButton({
   lineId,
@@ -15,26 +16,27 @@ export default function ChordButton({
   bar,
   string,
   open,
+  start,
 }: ChordButtonProps) {
   const updateChordPosition = useTabStore((state) => state.updateChordPosition);
   const getChordStart = useTabStore((state) => state.getChordStart);
   const fretName = useFretName(getChordStart(lineId, chordId), string, bar);
   return (
     <button
-      className="flex justify-center  border-t border-b border-indigo-600"
+      className="flex justify-center border-t border-b border-indigo-600"
       onClick={() => {
-        console.log(`${string}弦${bar}品`);
+        console.log(`${string}弦${bar + start}品`);
         updateChordPosition(lineId, chordId, string, bar);
       }}
     >
       {bar !== 0 ? (
         open ? (
-          <div className={'w-5 h-5 bg-black  rounded-full'}>
+          <div className={'w-5 h-5 bg-black rounded-full'}>
             <div className="text-xs text-slate-50 pt-1">{fretName}</div>
           </div>
         ) : (
-          <div className="border-l border-indigo-900 h-full hover:w-5 hover:h-5 hover:border hover:rounded-full hover:border-gray-900">
-            <div className="hover:text-xs opacity-0 hover:opacity-100 hover:pt-0.5">
+          <div className="relative w-5">
+            <div className=" hover:text-xs opacity-0 hover:opacity-100 pt-0.5 hover:rounded-full hover:border-gray-900 hover:border hover:w-5 hover:h-5">
               {fretName}
             </div>
           </div>

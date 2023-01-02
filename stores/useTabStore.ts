@@ -66,7 +66,13 @@ export const useTabStore = create<TabState>()(
         })),
       updateChordPosition: (lineId, chordId, string, position) =>
         set((state) => ({
-          lines: getUpdateChordPosition(lineId, chordId, position, state.lines),
+          lines: getUpdateChordPosition(
+            lineId,
+            chordId,
+            string,
+            position,
+            state.lines
+          ),
         })),
       deleteLines: (id) =>
         set((state) => ({
@@ -161,19 +167,15 @@ export function getUpdateChordName(
 export function getUpdateChordPosition(
   lineId: string,
   chordId: string,
+  string: number,
   chordPosition: number,
   lines: Array<Line>
 ): Array<Line> {
   const { targetLine, targetChord } = getLineAndChord(lines, lineId, chordId);
-  targetChord.position.forEach((item, index) => {
-    if (item === chordPosition) {
-      targetChord.position[index] = -1;
-    }
-  });
-  const newLines = lines.map((line) => {
+  targetChord.position[string - 1] = chordPosition;
+  return lines.map((line) => {
     return line.id === targetLine.id ? targetLine : line;
   });
-  return newLines;
 }
 export function getAddChordStart(
   lineId: string,

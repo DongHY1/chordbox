@@ -6,8 +6,9 @@ interface ChordGridProps {
   lineId: string;
   string: number;
   start: number;
-  position: number[];
+  position: number;
 }
+
 export default function ChordGrid({
   chordId,
   lineId,
@@ -15,23 +16,19 @@ export default function ChordGrid({
   start,
   position,
 }: ChordGridProps) {
-  const stringValue = position[string - 1];
-
   return (
     <section className="grid grid-flow-row auto-rows-fr">
-      {[0, 1, 2, 3, 4].map((bar) => {
-        const open = bar === 0 ? false : true;
-        return (
-          <ChordButton
-            key={bar + start}
-            string={string}
-            bar={bar + start}
-            open={open}
-            lineId={lineId}
-            chordId={chordId}
-          />
-        );
-      })}
+      {[0, 1, 2, 3, 4].map((bar) => (
+        <ChordButton
+          key={bar}
+          string={string}
+          start={start}
+          bar={bar}
+          open={position === bar + start}
+          lineId={lineId}
+          chordId={chordId}
+        />
+      ))}
     </section>
   );
 }
