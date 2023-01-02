@@ -23,7 +23,7 @@ export default function ChordButton({
   const fretName = useFretName(getChordStart(lineId, chordId), string, bar);
   return (
     <button
-      className="flex justify-center border-t border-b border-indigo-600"
+      className="flex justify-center h-6 border-t-2 border-b border-gray-900"
       onClick={() => {
         console.log(`${string}弦${bar + start}品`);
         updateChordPosition(lineId, chordId, string, bar);
@@ -35,8 +35,9 @@ export default function ChordButton({
             <div className="text-xs text-slate-50 pt-1">{fretName}</div>
           </div>
         ) : (
-          <div className="relative w-5">
-            <div className=" hover:text-xs opacity-0 hover:opacity-100 pt-0.5 hover:rounded-full hover:border-gray-900 hover:border hover:w-5 hover:h-5">
+          <div className="relative w-5 h-5">
+            <div className="absolute left-1/2 w-5 h-5 border-l border-gray-900"></div>
+            <div className="hover:text-xs opacity-0 hover:opacity-100 pt-0.5 hover:rounded-full hover:border-gray-900 hover:border hover:w-5 hover:h-5">
               {fretName}
             </div>
           </div>

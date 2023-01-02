@@ -20,7 +20,7 @@ export default function SongForm() {
     updateDescription(event.target.value);
   };
   return (
-    <div className="flex flex-col justify-center basis-1/4 bg-red-100">
+    <div className="flex flex-col bg-slate-100  border-4 justify-center basis-1/4">
       <div className="flex flex-row">
         <div className="text-xl ml-2 mr-2 ">歌曲名:</div>
         <input

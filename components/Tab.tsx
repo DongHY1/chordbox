@@ -17,11 +17,14 @@ const Tab = (props: {}, ref: React.Ref<{ handleTabPrintClick(): void }>) => {
   return (
     <div className="flex flex-col h-full" ref={tabRef}>
       <TabHeader />
-      <div className="flex flex-col bg-slate-400 basis-5/6 ">
+      <div className="flex flex-col bg-slate-100 basis-5/6">
         {lines.map((item) => (
-          <div className="flex flex-col  bg-slate-300 basis-1/3" key={item.id}>
+          <div
+            className="flex flex-col border-t-4 border-b-4 bg-slate-100 basis-1/3"
+            key={item.id}
+          >
             <div className="basis-1/12 text-center text-xl">{item.title}</div>
-            <div className="flex flex-row justify-start basis-11/12">
+            <div className="flex flex-row  justify-start basis-11/12">
               {item.chords.map((chord) => (
                 <ChordBox key={chord.id} chord={chord} lineId={item.id} />
               ))}

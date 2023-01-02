@@ -15,23 +15,23 @@ export default function Main() {
     <div className="flex flex-col h-screen">
       <Header />
       <div className="flex flex-row basis-11/12">
-        <main className="basis-3/4 bg-indigo-500">
+        <main className="basis-3/4 border-2">
           <Tab ref={printRef} />
         </main>
-        <aside className="flex flex-col basis-1/4 bg-sky-500">
+        <aside className="flex flex-col basis-1/4 border-4 ">
           <SongForm />
           <ChordForm />
           <button
             type="button"
             onClick={handleShareClick}
-            className="border border-cyan-800 rounded-lg"
+            className="border  bg-slate-100 "
           >
             分享
           </button>
           <button
             type="button"
             onClick={handleTabPrint}
-            className="border border-cyan-800 rounded-lg"
+            className="border  bg-slate-100"
           >
             打印
           </button>

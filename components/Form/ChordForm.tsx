@@ -1,7 +1,9 @@
 import React from 'react';
 import plus from '../../public/plus.svg';
 import Image from 'next/image';
-import { useTabStore, getNewLine } from '../../stores';
+import { useTabStore } from '../../stores';
+import { getNewLine } from '../../utils';
+
 export default function ChordForm() {
   const lines = useTabStore((state) => state.lines);
   const addLines = useTabStore((state) => state.addLines);
@@ -11,23 +13,21 @@ export default function ChordForm() {
   const duplicateLines = useTabStore((state) => state.duplicateLines);
 
   return (
-    <div className="flex flex-col basis-3/4 bg-red-200">
-      <div className="flex flex-row justify-between bg-red-300 ">
+    <div className="flex bg-slate-100 border-4 flex-col basis-3/4 ">
+      <div className="flex flex-row justify-between  ">
         <div className="text-xl ml-2">Lines</div>
         <Image
           src={plus}
           className="w-4 h-4 mt-1 mr-2 cursor-pointer"
           alt="plus svg"
           onClick={() => {
-            if (lines.length < 3) {
-              addLines(getNewLine());
-            }
+            addLines(getNewLine());
           }}
         />
       </div>
       {lines.map((item) => (
         <div
-          className="flex flex-row justify-between rounded-xl bg-red-400 m-2"
+          className="flex flex-row justify-between rounded-xl bg-gray-200 m-2"
           key={item.id}
         >
           <input
