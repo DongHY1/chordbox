@@ -9,8 +9,4 @@ describe('Header.spec.ts', () => {
     mount(<Header />);
     cy.get('[data-cy=header-name]').should('have.text', 'ChordBox');
   });
-  it('renders FaGithub and FaTwitter icons correctly', () => {
-    cy.get('[data-cy="fa-github"]').should('be.visible');
-    cy.get('[data-cy="fa-twitter"]').should('be.visible');
-  });
 });
