@@ -15,21 +15,15 @@ export default function ChordBox({
   const [isChordStartClick, setIsChordStartClick] = useState(false);
   return (
     <div className="flex flex-col basis-1/6 m-2 h-38 ">
-      <div className="flex justify-end">
-        <div className="mr-2">{chords[chordIndex].name}</div>
+      <div className="flex justify-center">
         <div
-          className="h-full cursor-pointer mr-2"
+          className="ml-4"
           onClick={() => {
             setChordIndex((chordIndex + 1) % chords.length);
           }}
+          onDoubleClick={() => deleteChord(lineId, chordId)}
         >
-          🔄
-        </div>
-        <div
-          className="h-full cursor-pointer"
-          onClick={() => deleteChord(lineId, chordId)}
-        >
-          🚮
+          {chords[chordIndex].name}
         </div>
       </div>
       <div className="basis-5/6 ">
